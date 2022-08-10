@@ -84,6 +84,12 @@ body {
   font-family: Georgia, "Times New Roman", Times, serif;
 }
 
+button {
+  font-family: inherit;
+  background-color: transparent;
+  border: none;
+}
+
 header {
   display: flex;
   justify-content: center;
@@ -116,6 +122,17 @@ main > article {
 
 article > button {
   position: absolute;
+}
+
+body > button {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  font-size: 1.5rem;
+  color: var(--color-amazon);
+  border: var(--color-amazon) 4px solid;
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
 }
 
 /*# sourceMappingURL=style.css.map */
