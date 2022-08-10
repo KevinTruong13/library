@@ -78,6 +78,7 @@ select {
   --cover-height: calc(8.5 * var(--cover-size-multiplier));
   --color-amazon: #307351;
   --color-ivory: #FFFFF2;
+  --color-red: #E3170A;
   --color-dark: #120309;
   --color-dark-transparent: #120309b6;
 }
@@ -136,6 +137,14 @@ article > div:hover {
 
 article button {
   position: absolute;
+}
+
+.close {
+  color: var(--color-red);
+}
+
+.read-status {
+  color: var(--color-ivory);
 }
 
 body > button {
