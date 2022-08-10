@@ -31,6 +31,8 @@ main {
     display: grid;
     grid-template-columns: repeat(auto-fill, var(--cover-width));
     grid-auto-columns: var(--cover-height);
+    gap: 2rem;
+    padding: 2rem 6rem;
 
     img {
         height: 100%;
