@@ -126,6 +126,8 @@ article {
 article > div {
   opacity: 0;
   position: absolute;
+  top: 0;
+  left: 0;
   height: 100%;
   width: 100%;
   background-color: var(--color-dark-transparent);
@@ -135,7 +137,7 @@ article > div {
 }
 article > div p {
   color: var(--color-ivory);
-  font-size: 2rem;
+  font-size: 1.5rem;
 }
 
 article > div:hover {
@@ -177,6 +179,15 @@ body > button {
   border: var(--color-amazon) 4px solid;
   padding: 0.5rem 1rem;
   border-radius: 2rem;
+}
+
+.no-cover {
+  background-color: var(--color-dark);
+  color: var(--color-ivory);
+  padding: 40% 1rem 1rem 2rem;
+}
+.no-cover p {
+  margin: 0 0 1rem;
 }
 
 /*# sourceMappingURL=style.css.map */
