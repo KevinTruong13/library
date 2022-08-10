@@ -78,6 +78,10 @@ select {
   --cover-height: calc(8.5 * var(--cover-size-multiplier));
 }
 
+body {
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+
 main {
   display: grid;
   grid-template-columns: repeat(auto-fill, var(--cover-width));
