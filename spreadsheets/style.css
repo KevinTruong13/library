@@ -76,13 +76,29 @@ select {
   --cover-size-multiplier: 3rem;
   --cover-width: calc(6.5 * var(--cover-size-multiplier));
   --cover-height: calc(8.5 * var(--cover-size-multiplier));
+  --color-amazon: #307351;
+  --color-ivory: #FFFFF2;
 }
 
 body {
   font-family: Georgia, "Times New Roman", Times, serif;
 }
 
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-amazon);
+  min-height: 6rem;
+}
+header h1 {
+  color: var(--color-ivory);
+  font-size: 2.5rem;
+  letter-spacing: 0.15rem;
+}
+
 main {
+  background-color: var(--color-ivory);
   display: grid;
   grid-template-columns: repeat(auto-fill, var(--cover-width));
   grid-auto-columns: var(--cover-height);
