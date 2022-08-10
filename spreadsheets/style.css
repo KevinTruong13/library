@@ -78,6 +78,8 @@ select {
   --cover-height: calc(8.5 * var(--cover-size-multiplier));
   --color-amazon: #307351;
   --color-ivory: #FFFFF2;
+  --color-dark: #120309;
+  --color-dark-transparent: #120309b6;
 }
 
 body {
@@ -116,11 +118,23 @@ main img {
   object-fit: cover;
 }
 
-main > article {
+article {
   position: relative;
 }
 
-article > button {
+article > div {
+  opacity: 0;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: var(--color-dark-transparent);
+}
+
+article > div:hover {
+  opacity: 100%;
+}
+
+article button {
   position: absolute;
 }
 
