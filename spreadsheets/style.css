@@ -137,14 +137,28 @@ article > div:hover {
 
 article button {
   position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.5rem;
 }
 
 .close {
   color: var(--color-red);
+  top: 1rem;
+  right: 1rem;
+}
+.close span {
+  font-size: 3rem;
 }
 
 .read-status {
   color: var(--color-ivory);
+  bottom: 1rem;
+  right: 1rem;
+}
+.read-status span {
+  font-size: 3rem;
 }
 
 body > button {
