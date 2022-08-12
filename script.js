@@ -3,7 +3,7 @@
 const books = createSampleBooks();
 books.forEach(displayBook);
 
-function Book(title, author, pages, isRead, coverPath = null) {
+function Book(title, author, pages, isRead, coverPath = "") {
     this.title = title;
     this.author = author;
     this.pages = Number(pages);
