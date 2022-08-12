@@ -205,12 +205,15 @@ fieldset {
   background-color: var(--color-dark-transparent);
   display: flex;
   flex-direction: column;
-  color: var(--color-ivory);
   border: none;
+  color: var(--color-ivory);
+  font-size: 1.5rem;
 }
 
 legend {
   background-color: var(--color-amazon);
+  padding: 0 1rem;
+  font-size: 2rem;
 }
 
 /*# sourceMappingURL=style.css.map */
