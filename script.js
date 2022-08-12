@@ -38,11 +38,13 @@ function displayBookInfo(e) {
     if (this != popUpForm || this === e.target) {
         togglePopUp(popUpForm);
         const bookID = this?.id;
-        if (bookID) {
+        if (!popUpForm.classList.contains('hidden') && bookID) {
             const book = document.querySelector('main').books[bookID];
             document.querySelector('#title').value = book.title;
             document.querySelector('#author').value = book.author;
             document.querySelector('#pages').value = book.pages;
+        } else {
+            document.querySelector('#title').value = document.querySelector('#author').value = document.querySelector('#pages').value = '';
         }
     }
 }
