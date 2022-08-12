@@ -8,7 +8,7 @@
     --color-ivory: #FFFFF2;
     --color-red: #E3170A;
     --color-dark: #120309;
-    --color-dark-transparent: #120309b6;
+    --color-dark-transparent: #120309e1;
 }
 
 body {
@@ -122,4 +122,27 @@ body>button {
     p {
         margin: 0 0 1rem;
     }
+}
+
+form {
+    position: absolute;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
+fieldset {
+    background-color: var(--color-dark-transparent);
+    display: flex;
+    flex-direction: column;
+    color: var(--color-ivory);
+    border: none;
+}
+
+legend {
+    background-color: var(--color-amazon);
 }
