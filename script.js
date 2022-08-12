@@ -28,12 +28,18 @@ function displayBook(book, index) {
 
 function addEventListeners() {
     document.querySelectorAll('article').forEach(bookCard => bookCard.addEventListener('click', displayBookInfo));
-    document.querySelector('fieldset .close').addEventListener('click', togglePopUp);
+    document.querySelector('fieldset button span').addEventListener('click', displayBookInfo);
     document.querySelector('body>button').addEventListener('click', displayBookInfo);
+    document.querySelector('form').addEventListener('click', displayBookInfo)
 }
 
 function displayBookInfo(e) {
-    togglePopUp();
+    if (this === e.target) {
+        togglePopUp();
+    }
+    console.log(this);
+    console.log('.');
+    console.log(e.target);
 }
 
 function togglePopUp() {
