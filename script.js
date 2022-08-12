@@ -2,6 +2,8 @@
 
 const books = createSampleBooks();
 books.forEach(displayBook);
+addEventListeners();
+// document.querySelector('fieldset button');
 
 function Book(title, author, pages, isRead, coverPath = "") {
     this.title = title;
@@ -57,4 +59,13 @@ function createBookWithoutCoverHTML(book, index) {
             <p>Author: ${book.author}</p>
             <p>Pages: ${book.pages}</p>
         </article>`
+}
+
+function addEventListeners() {
+    document.querySelectorAll('article').forEach(bookCard => bookCard.addEventListener('click', displayBookInfo));
+}
+
+function displayBookInfo(e) {
+    const popUpForm = document.querySelector('form');
+    popUpForm.classList.toggle('hidden');
 }
