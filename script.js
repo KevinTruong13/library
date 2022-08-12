@@ -4,6 +4,7 @@ const main = document.querySelector('main');
 main.books = createSampleBooks();
 main.books.forEach(displayBook);
 addEventListeners();
+// Check Book Info checkbox if read
 
 function Book(title, author, pages, isRead, coverPath = "") {
     this.title = title;
@@ -35,16 +36,23 @@ function addEventListeners() {
 
 function displayBookInfo(e) {
     const popUpForm = document.querySelector('form');
+
     if (this != popUpForm || this === e.target) {
         togglePopUp(popUpForm);
         const bookID = this?.id;
+
         if (!popUpForm.classList.contains('hidden') && bookID) {
             const book = document.querySelector('main').books[bookID];
             document.querySelector('#title').value = book.title;
             document.querySelector('#author').value = book.author;
             document.querySelector('#pages').value = book.pages;
+
+            if (book.isRead) {
+                document.querySelector('#isRead').setAttribute('checked', '');
+            }
         } else {
             document.querySelector('#title').value = document.querySelector('#author').value = document.querySelector('#pages').value = '';
+            document.querySelector('#isRead').removeAttribute('checked');
         }
     }
 }
