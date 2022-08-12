@@ -1,9 +1,9 @@
 'use strict';
 
-const books = createSampleBooks();
-books.forEach(displayBook);
+const main = document.querySelector('main');
+main.books = createSampleBooks();
+main.books.forEach(displayBook);
 addEventListeners();
-// document.querySelector('fieldset button');
 
 function Book(title, author, pages, isRead, coverPath = "") {
     this.title = title;
@@ -37,6 +37,13 @@ function displayBookInfo(e) {
     const popUpForm = document.querySelector('form');
     if (this != popUpForm || this === e.target) {
         togglePopUp(popUpForm);
+        const bookID = this?.id;
+        if (bookID) {
+            const book = document.querySelector('main').books[bookID];
+            document.querySelector('#title').value = book.title;
+            document.querySelector('#author').value = book.author;
+            document.querySelector('#pages').value = book.pages;
+        }
     }
 }
 
