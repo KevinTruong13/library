@@ -26,6 +26,21 @@ function displayBook(book, index) {
     main.insertAdjacentHTML('beforeend', book.coverPath ? createBookWithCoverHTML(book, index) : createBookWithoutCoverHTML(book, index));
 }
 
+function addEventListeners() {
+    document.querySelectorAll('article').forEach(bookCard => bookCard.addEventListener('click', displayBookInfo));
+    document.querySelector('fieldset .close').addEventListener('click', togglePopUp);
+    document.querySelector('body>button').addEventListener('click', displayBookInfo);
+}
+
+function displayBookInfo(e) {
+    togglePopUp();
+}
+
+function togglePopUp() {
+    const popUpForm = document.querySelector('form');
+    popUpForm.classList.toggle('hidden');
+}
+
 function createBookWithCoverHTML(book, index) {
     return `<article id="${index}">
             <div>
@@ -59,18 +74,4 @@ function createBookWithoutCoverHTML(book, index) {
             <p>Author: ${book.author}</p>
             <p>Pages: ${book.pages}</p>
         </article>`
-}
-
-function addEventListeners() {
-    document.querySelectorAll('article').forEach(bookCard => bookCard.addEventListener('click', displayBookInfo));
-    document.querySelector('fieldset .close').addEventListener('click', togglePopUp);
-}
-
-function displayBookInfo(e) {
-    togglePopUp();
-}
-
-function togglePopUp() {
-    const popUpForm = document.querySelector('form');
-    popUpForm.classList.toggle('hidden');
 }
