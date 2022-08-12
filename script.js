@@ -63,9 +63,14 @@ function createBookWithoutCoverHTML(book, index) {
 
 function addEventListeners() {
     document.querySelectorAll('article').forEach(bookCard => bookCard.addEventListener('click', displayBookInfo));
+    document.querySelector('fieldset .close').addEventListener('click', togglePopUp);
 }
 
 function displayBookInfo(e) {
+    togglePopUp();
+}
+
+function togglePopUp() {
     const popUpForm = document.querySelector('form');
     popUpForm.classList.toggle('hidden');
 }
