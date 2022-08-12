@@ -34,16 +34,13 @@ function addEventListeners() {
 }
 
 function displayBookInfo(e) {
-    if (this === e.target) {
-        togglePopUp();
+    const popUpForm = document.querySelector('form');
+    if (this != popUpForm || this === e.target) {
+        togglePopUp(popUpForm);
     }
-    console.log(this);
-    console.log('.');
-    console.log(e.target);
 }
 
-function togglePopUp() {
-    const popUpForm = document.querySelector('form');
+function togglePopUp(popUpForm) {
     popUpForm.classList.toggle('hidden');
 }
 
