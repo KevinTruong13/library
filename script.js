@@ -72,7 +72,21 @@ function emptyFields() {
 }
 
 function createBookSubmission() {
-    console.log('meow');
+    const titleField = document.querySelector('#title');
+    const authorField = document.querySelector('#author');
+    const pagesField = document.querySelector('#pages');
+    if (!titleField.checkValidity() || !authorField.checkValidity() || !pagesField.checkValidity()) {
+        reportInvalid(titleField, authorField, pagesField);
+
+    }
+
+}
+
+function reportInvalid(...fields) {
+    for (const field of fields) {
+        console.log(field);
+        field.reportValidity();
+    }
 }
 
 function createBookEdit() {
