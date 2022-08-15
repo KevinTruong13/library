@@ -41,15 +41,10 @@ function displayBookInfo(e) {
         const submitButton = document.querySelector('.submit');
         const bookID = this?.id;
 
-        if (!popUpForm.classList.contains('hidden') && bookID) {
-            const book = document.querySelector('main').books[bookID];
-            document.querySelector('#title').value = book.title;
-            document.querySelector('#author').value = book.author;
-            document.querySelector('#pages').value = book.pages;
-
-            if (book.isRead) {
-                document.querySelector('#isRead').setAttribute('checked', '');
-            }
+        if (popUpForm.classList.contains('hidden')) {
+            emptyFields();
+        } else if (!popUpForm.classList.contains('hidden') && bookID) {
+            fillBookDataFields(bookID);
 
             submitButton.removeEventListener('click', createBookSubmission);
             submitButton.addEventListener('click', createBookEdit);
@@ -57,11 +52,23 @@ function displayBookInfo(e) {
             submitButton.removeEventListener('click', createBookEdit);
             submitButton.addEventListener('click', createBookSubmission);
         }
-        else {
-            document.querySelector('#title').value = document.querySelector('#author').value = document.querySelector('#pages').value = '';
-            document.querySelector('#isRead').removeAttribute('checked');
-        }
     }
+}
+
+function fillBookDataFields(bookID) {
+    const book = document.querySelector('main').books[bookID];
+    document.querySelector('#title').value = book.title;
+    document.querySelector('#author').value = book.author;
+    document.querySelector('#pages').value = book.pages;
+
+    if (book.isRead) {
+        document.querySelector('#isRead').setAttribute('checked', '');
+    }
+}
+
+function emptyFields() {
+    document.querySelector('#title').value = document.querySelector('#author').value = document.querySelector('#pages').value = '';
+    document.querySelector('#isRead').removeAttribute('checked');
 }
 
 function createBookSubmission() {
