@@ -110,12 +110,13 @@ main {
   background-color: var(--color-ivory);
   display: grid;
   grid-template-columns: repeat(auto-fill, var(--cover-width));
-  grid-auto-columns: var(--cover-height);
+  grid-auto-rows: var(--cover-height);
   gap: 2rem;
   padding: 2rem 6rem;
 }
 main img {
   height: 100%;
+  width: 100%;
   object-fit: cover;
 }
 
