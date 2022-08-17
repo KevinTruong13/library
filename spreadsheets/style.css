@@ -151,8 +151,12 @@ fieldset .close {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   color: var(--color-ivory);
+}
+
+article .close {
+  gap: 0;
 }
 
 .close {
