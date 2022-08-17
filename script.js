@@ -46,7 +46,9 @@ function addEventListeners() {
     document.querySelectorAll('article').forEach(bookCard => bookCard.addEventListener('click', displayBookInfo));
     document.querySelector('fieldset button span').addEventListener('click', displayBookInfo);
     document.querySelector('body>button').addEventListener('click', displayBookInfo);
-    document.querySelector('form').addEventListener('click', displayBookInfo)
+    POPUP_FORM.addEventListener('click', displayBookInfo);
+
+    document.querySelectorAll('article .read-status').forEach(bookCardReadStatus => bookCardReadStatus.addEventListener('click', toggleReadStatus));
 }
 
 function displayBookInfo(e) {
@@ -112,6 +114,10 @@ function createBookEdit() {
 function togglePopUp() {
     document.querySelector('form').classList.toggle('hidden');
     emptyFields();
+}
+
+function toggleReadStatus(e) {
+
 }
 
 function createBookWithCoverHTML(book, index) {
