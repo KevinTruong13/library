@@ -53,8 +53,11 @@ function addEventListeners() {
     POPUP_FORM.addEventListener('click', displayBookInfo);
 }
 
-function newBookAddEventListeners() {
-    // Add event listeners when creating new books
+function newBookAddEventListeners(bookID) {
+    const bookCard = getBookCardByIndex(bookID);
+    bookCard.querySelector('.close').addEventListener('click', displayBookInfo);
+    bookCard.querySelector('.read-status').addEventListener('click', toggleReadStatus);
+    bookCard.querySelector('div').addEventListener('click', displayBookInfo);
 }
 
 function displayBookInfo(e) {
@@ -102,6 +105,7 @@ function createBookSubmission() {
             setCover(bookID);
         }
 
+        newBookAddEventListeners(bookID);
         togglePopUp()
     }
 
@@ -130,6 +134,10 @@ function toggleReadStatus(e) {
 
 function removeBook(e) {
     // ToDo
+}
+
+function getBookCardByIndex(bookID) {
+    return document.querySelector(`#\\3${bookID} `);
 }
 
 function createBookWithCoverHTML(book, index) {
@@ -190,7 +198,7 @@ function createBookWithoutCoverHTML(book, index) {
 
 // Add a change listener to the file input to inspect the uploaded file.
 function setCover(bookID) {
-    var img = document.querySelector(`#\\3${bookID}  img`);
+    var img = getBookCardByIndex(bookID).querySelector('img');
 
     var file = COVER_FILE_FIELD.files[0];
 
