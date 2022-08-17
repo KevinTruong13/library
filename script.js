@@ -4,11 +4,13 @@
 const MAIN = document.querySelector('main');
 const POPUP_FORM = document.querySelector('form');
 const SUBMIT_BUTTON = document.querySelector('.submit');
+const POPUP_FORM_CLOSE_BUTTON = document.querySelector('fieldset button span');
 const TITLE_FIELD = document.querySelector('#title');
 const AUTHOR_FIELD = document.querySelector('#author');
 const PAGES_FIELD = document.querySelector('#pages');
 const IS_READ_FIELD = document.querySelector('#isRead');
 const COVER_FILE_FIELD = document.querySelector('#cover');
+const ADD_BOOK_BUTTON = document.querySelector('body>button');
 
 MAIN.books = createSampleBooks();
 MAIN.books.forEach(displayBookSample);
@@ -44,11 +46,15 @@ function displayBookSample(book, index) {
 
 function addEventListeners() {
     document.querySelectorAll('article div').forEach(bookCard => bookCard.addEventListener('click', displayBookInfo));
-    document.querySelector('fieldset button span').addEventListener('click', displayBookInfo);
-    document.querySelector('body>button').addEventListener('click', displayBookInfo);
-    POPUP_FORM.addEventListener('click', displayBookInfo);
-
     document.querySelectorAll('article .read-status').forEach(bookCardReadStatus => bookCardReadStatus.addEventListener('click', toggleReadStatus));
+    document.querySelectorAll('article .close').forEach(bookCardRemoveButton => bookCardRemoveButton.addEventListener('click', removeBook));
+    POPUP_FORM_CLOSE_BUTTON.addEventListener('click', displayBookInfo);
+    ADD_BOOK_BUTTON.addEventListener('click', displayBookInfo);
+    POPUP_FORM.addEventListener('click', displayBookInfo);
+}
+
+function newBookAddEventListeners() {
+    // Add event listeners when creating new books
 }
 
 function displayBookInfo(e) {
@@ -108,6 +114,7 @@ function reportInvalid(...fields) {
 }
 
 function createBookEdit() {
+    // ToDo
     console.log('woof');
 }
 
@@ -117,7 +124,12 @@ function togglePopUp() {
 }
 
 function toggleReadStatus(e) {
+    //ToDo
+    console.log(e);
+}
 
+function removeBook(e) {
+    // ToDo
 }
 
 function createBookWithCoverHTML(book, index) {
