@@ -1,10 +1,21 @@
 'use strict';
 
-const main = document.querySelector('main');
-main.books = createSampleBooks();
-main.books.forEach(displayBookSample);
+// Fill main with sample books
+const MAIN = document.querySelector('main');
+const POPUP_FORM = document.querySelector('form');
+const SUBMIT_BUTTON = document.querySelector('.submit');
+const TITLE_FIELD = document.querySelector('#title');
+const AUTHOR_FIELD = document.querySelector('#author');
+const PAGES_FIELD = document.querySelector('#pages');
+const IS_READ_FIELD = document.querySelector('#isRead');
+const COVER_FILE_FIELD = document.querySelector('#cover');
+
+MAIN.books = createSampleBooks();
+MAIN.books.forEach(displayBookSample);
+
 addEventListeners();
 
+// Book object constructor. Represents a book card.
 function Book(title, author, pages, isRead, coverPath = "") {
     this.title = title;
     this.author = author;
@@ -21,15 +32,14 @@ function createSampleBooks() {
     return books;
 }
 
+// Inserts corresponding html for a new Book card and pushes the Book object to the books array
 function displayBook(book, index) {
-    const main = document.querySelector('main');
-    main.insertAdjacentHTML('beforeend', book.coverPath ? createBookWithCoverHTML(book, index) : createBookWithoutCoverHTML(book, index));
-    main.books.push(book);
+    MAIN.insertAdjacentHTML('beforeend', book.coverPath ? createBookWithCoverHTML(book, index) : createBookWithoutCoverHTML(book, index));
+    MAIN.books.push(book);
 }
 
 function displayBookSample(book, index) {
-    const main = document.querySelector('main');
-    main.insertAdjacentHTML('beforeend', createBookSampleWithCoverHTML(book, index));
+    MAIN.insertAdjacentHTML('beforeend', createBookSampleWithCoverHTML(book, index));
 }
 
 function addEventListeners() {
@@ -40,27 +50,23 @@ function addEventListeners() {
 }
 
 function displayBookInfo(e) {
-    const popUpForm = document.querySelector('form');
-
-    if (this != popUpForm || this === e.target) {
+    if (this != POPUP_FORM || this === e.target) {   // Callback function will only trigger if event caller is not within the popup form (or the close form button)
         togglePopUp();
-        const submitButton = document.querySelector('.submit');
-        const bookID = this?.id;
+        const bookID = this?.id;    // Value of null if caller is not a book card
 
-        if (!popUpForm.classList.contains('hidden') && bookID) {
+        if (!POPUP_FORM.classList.contains('hidden') && bookID) {    // If not hidden and caller is a book card, fill fields and prime for book edit
             fillBookDataFields(bookID);
 
-            submitButton.removeEventListener('click', createBookSubmission);
-            submitButton.addEventListener('click', createBookEdit);
-        } else if (!bookID) {
-            submitButton.removeEventListener('click', createBookEdit);
-            submitButton.addEventListener('click', createBookSubmission);
-        }
+            SUBMIT_BUTTON.removeEventListener('click', createBookSubmission);
+            SUBMIT_BUTTON.addEventListener('click', createBookEdit);
+        } else if (!POPUP_FORM.classList.contains('hidden') && !bookID) // If not hidden and caller is not a book card, prime for new book submission
+            SUBMIT_BUTTON.removeEventListener('click', createBookEdit);
+        SUBMIT_BUTTON.addEventListener('click', createBookSubmission);
     }
 }
 
 function fillBookDataFields(bookID) {
-    const book = document.querySelector('main').books[bookID];
+    const book = MAIN.books[bookID];
     document.querySelector('#title').value = book.title;
     document.querySelector('#author').value = book.author;
     document.querySelector('#pages').value = book.pages;
@@ -71,26 +77,20 @@ function fillBookDataFields(bookID) {
 }
 
 function emptyFields() {
-    document.querySelector('#title').value = document.querySelector('#author').value = document.querySelector('#pages').value = '';
+    document.querySelector('#title').value = document.querySelector('#author').value = document.querySelector('#pages').value = document.querySelector('#cover').value = '';
     document.querySelector('#isRead').checked = false;
-    document.querySelector('#cover').value = '';
 }
 
 function createBookSubmission() {
-    const titleField = document.querySelector('#title');
-    const authorField = document.querySelector('#author');
-    const pagesField = document.querySelector('#pages');
-    const isReadField = document.querySelector('#isRead');
-    const coverFileField = document.querySelector('#cover');
-    const bookID = main.books.length;
+    const bookID = MAIN.books.length;
 
-    if (!titleField.checkValidity() || !authorField.checkValidity() || !pagesField.checkValidity()) {
-        reportInvalid(titleField, authorField, pagesField);
+    if (!TITLE_FIELD.checkValidity() || !AUTHOR_FIELD.checkValidity() || !PAGES_FIELD.checkValidity()) {
+        reportInvalid(TITLE_FIELD, AUTHOR_FIELD, PAGES_FIELD);
     } else {
-        const newBook = new Book(titleField.value, authorField.value, pagesField.value, isReadField.checked, coverFileField.files.length);
+        const newBook = new Book(TITLE_FIELD.value, AUTHOR_FIELD.value, PAGES_FIELD.value, IS_READ_FIELD.checked, COVER_FILE_FIELD.files.length);
         displayBook(newBook, bookID);
 
-        if (coverFileField.files.length === 1) {
+        if (COVER_FILE_FIELD.files.length === 1) {
             setCover(bookID);
         }
 
@@ -167,14 +167,14 @@ function createBookWithoutCoverHTML(book, index) {
 }
 
 
-// The following code was taken from: https://stackoverflow.com/questions/31850732/save-a-file-image-to-localstorage-html ,due to my lack of file storage at this time.
+// The following code was taken from: https://stackoverflow.com/questions/31850732/save-a-file-image-to-localstorage-html 
+// ,due to my lack of knowledge on file storage at this time.
 
 // Add a change listener to the file input to inspect the uploaded file.
 function setCover(bookID) {
     var img = document.querySelector(`#\\3${bookID}  img`);
-    const coverInput = document.getElementById('cover');
 
-    var file = coverInput.files[0];
+    var file = COVER_FILE_FIELD.files[0];
 
     // Create a file reader
     var fReader = new FileReader();
