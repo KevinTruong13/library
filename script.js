@@ -43,7 +43,7 @@ function displayBookSample(book, index) {
 }
 
 function addEventListeners() {
-    document.querySelectorAll('article').forEach(bookCard => bookCard.addEventListener('click', displayBookInfo));
+    document.querySelectorAll('article div').forEach(bookCard => bookCard.addEventListener('click', displayBookInfo));
     document.querySelector('fieldset button span').addEventListener('click', displayBookInfo);
     document.querySelector('body>button').addEventListener('click', displayBookInfo);
     POPUP_FORM.addEventListener('click', displayBookInfo);
@@ -52,9 +52,9 @@ function addEventListeners() {
 }
 
 function displayBookInfo(e) {
-    if (this != POPUP_FORM || this === e.target) {   // Callback function will only trigger if event caller is not within the popup form (or the close form button)
+    if (this === e.target) {   // Callback function will only trigger if event caller is same as event target (stops bubbling)
         togglePopUp();
-        const bookID = this?.id;    // Value of null if caller is not a book card
+        const bookID = this.parentNode?.id;    // Value of null if caller is not a book card
 
         if (!POPUP_FORM.classList.contains('hidden') && bookID) {    // If not hidden and caller is a book card, fill fields and prime for book edit
             fillBookDataFields(bookID);
