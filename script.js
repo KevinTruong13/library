@@ -54,14 +54,14 @@ function addEventListeners() {
 function displayBookInfo(e) {
     if (this === e.target) {   // Callback function will only trigger if event caller is same as event target (stops bubbling)
         togglePopUp();
-        const bookID = this.parentNode?.id;    // Value of null if caller is not a book card
+        const bookID = this.parentNode?.id;    // Value of null if caller's parent node is not a book card
 
-        if (!POPUP_FORM.classList.contains('hidden') && bookID) {    // If not hidden and caller is a book card, fill fields and prime for book edit
+        if (!POPUP_FORM.classList.contains('hidden') && bookID) {    // If not hidden and caller's parent node is a book card, fill fields and prime for book edit
             fillBookDataFields(bookID);
 
             SUBMIT_BUTTON.removeEventListener('click', createBookSubmission);
             SUBMIT_BUTTON.addEventListener('click', createBookEdit);
-        } else if (!POPUP_FORM.classList.contains('hidden') && !bookID) // If not hidden and caller is not a book card, prime for new book submission
+        } else if (!POPUP_FORM.classList.contains('hidden') && !bookID) // If not hidden and caller's parent node is not a book card, prime for new book submission
             SUBMIT_BUTTON.removeEventListener('click', createBookEdit);
         SUBMIT_BUTTON.addEventListener('click', createBookSubmission);
     }
