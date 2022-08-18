@@ -1,3 +1,4 @@
+// Fix book info not displaying when clicking on child p element
 'use strict';
 
 // Fill main with sample books
@@ -185,6 +186,7 @@ function createBookWithoutCoverHTML(book, index) {
                     ${book.isRead ? 'Read' : 'Unread'}
                     <span class="material-symbols-outlined">${book.isRead ? 'visibility' : 'visibility_off'}</span>
                 </button>
+                <p>View and Edit Info</p>
             </div>
             <p>Title: ${book.title}</p>
             <p>Author: ${book.author}</p>
