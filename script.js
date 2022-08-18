@@ -65,7 +65,7 @@ function displayBookInfo(e) {
     // Callback function will only trigger if event caller is same as event target (stops bubbling) or event target is given special exemption class
     if (this === e.target || e.target.classList.contains('exclude-event-bubbling-check')) {
         togglePopUp();
-        const bookID = this.parentNode?.id;    // Value of null if caller's parent node is not a book card
+        const bookID = +this.parentNode?.id;    // Value of null if caller's parent node is not a book card
 
         if (!POPUP_FORM.classList.contains('hidden') && bookID) {    // If not hidden and caller's parent node is a book card, fill fields and prime for book edit
             fillBookDataFields(bookID);
@@ -96,7 +96,7 @@ function emptyFields() {
 }
 
 function createBookSubmission() {
-    const bookID = MAIN.books.length;
+    const bookID = +MAIN.books.length;
 
     if (!TITLE_FIELD.checkValidity() || !AUTHOR_FIELD.checkValidity() || !PAGES_FIELD.checkValidity()) {
         reportInvalid(TITLE_FIELD, AUTHOR_FIELD, PAGES_FIELD);
@@ -132,7 +132,7 @@ function togglePopUp() {
 
 // Toggle isRead boolean of Book card and change respective html to matchß
 function toggleReadStatus() {
-    const bookID = this.closest('article').id;
+    const bookID = +this.closest('article').id;
     const isRead = !MAIN.books[bookID].isRead;
     MAIN.books[bookID].isRead = isRead;
 
@@ -141,7 +141,21 @@ function toggleReadStatus() {
 }
 
 function removeBook(e) {
-    // ToDo
+    const bookCard = this.closest('article');
+    const bookID = +bookCard.id;
+
+    MAIN.books.splice(bookID, 1);
+    bookCard.remove();
+
+    updateBookCardIDsAfter(bookID);
+}
+
+function updateBookCardIDsAfter(bookID) {
+    const followingBookID = bookID + 1;
+
+    for (let i = followingBookID; i < MAIN.books.length + 1; i++) {
+        --getBookCardByIndex(i).id;
+    }
 }
 
 function getBookCardByIndex(bookID) {
