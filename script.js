@@ -70,11 +70,15 @@ function displayBookInfo(e) {
         if (!POPUP_FORM.classList.contains('hidden') && bookID) {    // If not hidden and caller's parent node is a book card, fill fields and prime for book edit
             fillBookDataFields(bookID);
 
+            POPUP_FORM.setAttribute('data-working-book-ID', bookID);    // Attribute signifying currently viewed Book
+
             SUBMIT_BUTTON.removeEventListener('click', createBookSubmission);
             SUBMIT_BUTTON.addEventListener('click', createBookEdit);
         } else if (!POPUP_FORM.classList.contains('hidden') && !bookID) {// If not hidden and caller's parent node is not a book card, prime for new book submission
             SUBMIT_BUTTON.removeEventListener('click', createBookEdit);
             SUBMIT_BUTTON.addEventListener('click', createBookSubmission);
+        } else if (POPUP_FORM.getAttribute('data-working-book-ID') != '') { // If not closing a Book edit
+            POPUP_FORM.setAttribute('data-working-book-ID', '');
         }
     }
 }
@@ -121,8 +125,22 @@ function reportInvalid(...fields) {
 }
 
 function createBookEdit() {
-    // ToDo
-    console.log('woof');
+    const bookID = +this.closest('form').getAttribute('data-working-book-ID');
+    const book = MAIN.books[bookID];
+
+    book.title = TITLE_FIELD.value;
+    book.author = AUTHOR_FIELD.value;
+    book.pages = PAGES_FIELD.value;
+
+    if (book.isRead != IS_READ_FIELD.checked) {
+        toggleReadStatus(bookID);
+    }
+
+    if (COVER_FILE_FIELD.files.length === 1) {
+        setCover(bookID);
+    }
+
+    togglePopUp();
 }
 
 function togglePopUp() {
@@ -130,18 +148,22 @@ function togglePopUp() {
     emptyFields();
 }
 
-// Toggle isRead boolean of Book card and change respective html to matchß
-function toggleReadStatus() {
-    const bookID = +this.closest('article').id;
+// Toggle isRead boolean of Book card and change respective html to match
+function toggleReadStatus(bookID = null) {
+    // If called as event listener call back function, will change parameter to hold bookID
+    if (bookID instanceof PointerEvent) {
+        bookID = +getBookCardByChildElement(this).id;
+    }
+
     const isRead = !MAIN.books[bookID].isRead;
     MAIN.books[bookID].isRead = isRead;
 
-    this.innerHTML = `${isRead ? 'Read' : 'Unread'}
+    getBookCardByIndex(bookID).querySelector('.read-status').innerHTML = `${isRead ? 'Read' : 'Unread'}
     <span class="material-symbols-outlined">${isRead ? 'visibility' : 'visibility_off'}</span>`;
 }
 
 function removeBook(e) {
-    const bookCard = this.closest('article');
+    const bookCard = getBookCardByChildElement(this);
     const bookID = +bookCard.id;
 
     MAIN.books.splice(bookID, 1);
@@ -150,6 +172,7 @@ function removeBook(e) {
     updateBookCardIDsAfter(bookID);
 }
 
+// Decrease remaining Book card element's ID by one
 function updateBookCardIDsAfter(bookID) {
     const followingBookID = bookID + 1;
 
@@ -160,6 +183,10 @@ function updateBookCardIDsAfter(bookID) {
 
 function getBookCardByIndex(bookID) {
     return document.querySelector(`#\\3${bookID} `);
+}
+
+function getBookCardByChildElement(child) {
+    return child.closest('article');
 }
 
 function createBookWithCoverHTML(book, index) {
