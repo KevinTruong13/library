@@ -62,7 +62,8 @@ function newBookAddEventListeners(bookID) {
 }
 
 function displayBookInfo(e) {
-    if (this === e.target) {   // Callback function will only trigger if event caller is same as event target (stops bubbling)
+    // Callback function will only trigger if event caller is same as event target (stops bubbling) or event target is given special exemption class
+    if (this === e.target || e.target.classList.contains('exclude-event-bubbling-check')) {
         togglePopUp();
         const bookID = this.parentNode?.id;    // Value of null if caller's parent node is not a book card
 
@@ -71,9 +72,10 @@ function displayBookInfo(e) {
 
             SUBMIT_BUTTON.removeEventListener('click', createBookSubmission);
             SUBMIT_BUTTON.addEventListener('click', createBookEdit);
-        } else if (!POPUP_FORM.classList.contains('hidden') && !bookID) // If not hidden and caller's parent node is not a book card, prime for new book submission
+        } else if (!POPUP_FORM.classList.contains('hidden') && !bookID) {// If not hidden and caller's parent node is not a book card, prime for new book submission
             SUBMIT_BUTTON.removeEventListener('click', createBookEdit);
-        SUBMIT_BUTTON.addEventListener('click', createBookSubmission);
+            SUBMIT_BUTTON.addEventListener('click', createBookSubmission);
+        }
     }
 }
 
@@ -152,7 +154,7 @@ function createBookWithCoverHTML(book, index) {
                     ${book.isRead ? 'Read' : 'Unread'}
                     <span class="material-symbols-outlined">${book.isRead ? 'visibility' : 'visibility_off'}</span>
                 </button>
-                <p>View and Edit Info</p>
+                <p class="exclude-event-bubbling-check">View and Edit Info</p>
             </div>
             <img src="" alt="Book Cover">
         </article>`
@@ -169,7 +171,7 @@ function createBookSampleWithCoverHTML(book, index) {
                     ${book.isRead ? 'Read' : 'Unread'}
                     <span class="material-symbols-outlined">${book.isRead ? 'visibility' : 'visibility_off'}</span>
                 </button>
-                <p>View and Edit Info</p>
+                <p class="exclude-event-bubbling-check">View and Edit Info</p>
             </div>
             <img src="./images/${book.coverPath}" alt="Book Cover">
         </article>`
@@ -186,7 +188,7 @@ function createBookWithoutCoverHTML(book, index) {
                     ${book.isRead ? 'Read' : 'Unread'}
                     <span class="material-symbols-outlined">${book.isRead ? 'visibility' : 'visibility_off'}</span>
                 </button>
-                <p>View and Edit Info</p>
+                <p class="exclude-event-bubbling-check">View and Edit Info</p>
             </div>
             <p>Title: ${book.title}</p>
             <p>Author: ${book.author}</p>
