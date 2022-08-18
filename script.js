@@ -130,9 +130,14 @@ function togglePopUp() {
     emptyFields();
 }
 
-function toggleReadStatus(e) {
-    //ToDo
-    console.log(e);
+// Toggle isRead boolean of Book card and change respective html to matchß
+function toggleReadStatus() {
+    const bookID = this.closest('article').id;
+    const isRead = !MAIN.books[bookID].isRead;
+    MAIN.books[bookID].isRead = isRead;
+
+    this.innerHTML = `${isRead ? 'Read' : 'Unread'}
+    <span class="material-symbols-outlined">${isRead ? 'visibility' : 'visibility_off'}</span>`;
 }
 
 function removeBook(e) {
